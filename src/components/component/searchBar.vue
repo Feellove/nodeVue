@@ -1,69 +1,36 @@
 <template>
   <!--search bar layout-->
   <div class="search-bar">
-    <van-row>
-      <van-col span="3"><img :src="locationIcon" width="80%" class="location-icon"/></van-col>
-      <van-col span="16">
-        <input type="text" class="search-input" placeholder="搜索"/>
-      </van-col>
-      <van-col span="5">
-        <van-button size="mini">查找</van-button>
-      </van-col>
-    </van-row>
+    <van-search placeholder="请输入商品名称" @focus="toSearch"/>
   </div>
 </template>
 <script>
   export default {
     data(){
-      return {
-        locationIcon : require("../../assets/images/location.png")
+      return {}
+    },
+    methods : {
+      toSearch(){
+        this.$router.push('/searchContent')
       }
     }
   }
 </script>
-<style scoped>
-  .search-bar{
-    background-color:#e5017d;
-    line-height:2.2rem;
+<style>
+  .search-bar .van-search{
+    background-color:#e5017d !important;
+    line-height:1.024rem;
   }
-  .search-input{
-    width:100%;
-    height:1.3rem;
-    border-top:0px;
-    border-left:0px;
-    border-right:0px;
-    border-bottom:solid 1px !important;
-    background-color:#e5017d;
-    color:#fff;
-    font-size:0.6rem;
+  .search-bar .van-search .van-icon-search{
+    font-size:0.683rem;
   }
-  ::-webkit-input-placeholder{ /* WebKit browsers */
-    font-size:0.6rem;
-    color:#fff;
+  .search-bar .van-search .van-cell{
+    line-height:1.024rem;
+    border-radius:0.171rem;
+    padding:0.128rem 0.427rem 0.128rem 1.493rem;
   }
-  :-moz-placeholder{ /* Mozilla Firefox 4 to 18 */
-    font-size:0.6rem;
-    color:#fff;
+  .search-bar .van-field__control{
+    font-size:0.512rem;
   }
-  ::-moz-placeholder{ /* Mozilla Firefox 19+ */
-    font-size:0.6rem;
-    color:#fff;
-  }
-  :-ms-input-placeholder{ /* Internet Explorer 10+ */
-    font-size:0.6rem;
-    color:#fff;
-  }
-  .location-icon{
-    padding-top:0.4rem;
-    padding-left:0.3rem;
-  }
-  .van-button--mini{
-    width:2.1rem;
-    height:0.94rem;
-    line-height:0.85rem;
-    font-size:0.427rem;
-  }
-  .van-tabbar-item__icon .van-icon.van-icon-wap-home{
-    font-size:.8rem !important;
-  }
+
 </style>

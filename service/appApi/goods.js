@@ -106,6 +106,7 @@ router.post('/getGoodsListByCategorySubID', async (ctx) =>{
   }
 })
 
+//购物车操作
 router.post('/insertAllCart', async (ctx) =>{
   let data = ctx.request.body
   console.log(data);
@@ -128,7 +129,7 @@ router.post('/insertAllCart', async (ctx) =>{
       console.log('商品数据写入成功');
     }
   });
-})
+})//添加
 
 router.post('/checkCart', async (ctx) =>{
   try{
@@ -138,33 +139,89 @@ router.post('/checkCart', async (ctx) =>{
   } catch (err) {
     ctx.body = {code : 500, message : err}
   }
-})
+})//查询
 
 router.post('/updateCart', async (ctx) =>{
   try{
     let cartId = ctx.request.body.cartId
     let num = ctx.request.body.num
-    console.log(cartId);
-    console.log(num);
     const Cart = mongoose.model('Cart')
     let result = await Cart.update({ID : cartId}, {NUM : num}).exec()
-    console.log(result);
     console.log(await Cart.find().exec());
-    ctx.body = {code : 200, message : result}
+    ctx.body = {code : 200, message : await Cart.find().exec()}
   } catch (err) {
     ctx.body = {code : 500, message : err}
   }
-})
+})//更新
 
 router.post('/deleteCart', async (ctx) =>{
   try{
-    let cartId = ctx.request.body.cartId
+    let deleteData = ctx.request.body.deleteData
     const Cart = mongoose.model('Cart')
-    let result = await Cart.remove({ID : cartId}).exec()
+    let result = '';
+    for(let i = 0; i < deleteData.length; i++){
+      result = await Cart.remove({ID : deleteData[i].ID}).exec()
+    }
     ctx.body = {code : 200, message : result}
   } catch (err) {
     ctx.body = {code : 500, message : err}
   }
-})
+})//删除
+
+//搜索操作
+router.post('/insertKeyword', async (ctx) =>{
+  let data = ctx.request.body
+  console.log(data);
+  const Keyword = mongoose.model('Keyword')
+  let keyInsert = new Keyword(data);
+  let result = await Keyword.find({NAME : data.NAME}).exec()
+  console.log(result);
+  console.log(result == '');
+  if(result == ''){
+    console.log(1);
+    keyInsert.save().then(() =>{
+      console.log('成功插入')
+      ctx.body = {code : 200, message : keyInsert}
+      console.log(ctx.response);
+    }).catch(error =>{
+      console.log('插入失败:' + error)
+    })
+  }
+})//添加关键字
+
+router.post('/checkKeyword', async (ctx) =>{
+  try{
+    const Keyword = mongoose.model('Keyword');
+    let result = await Keyword.find().exec();
+    ctx.body = {code : 200, message : result}
+  } catch (err) {
+    ctx.body = {code : 500, message : err}
+  }
+})//查询关键字
+
+router.post('/deleteKeyword', async (ctx) =>{
+  try{
+    let name = ctx.request.body.name
+    console.log(name);
+    const Keyword = mongoose.model('Keyword')
+    let result = name !== "" ? await Keyword.remove({NAME : name}).exec() : await Keyword.remove().exec()
+    ctx.body = {code : 200, message : result}
+  } catch (err) {
+    ctx.body = {code : 500, message : err}
+  }
+})//删除
+
+router.post('/checkGoods', async (ctx) =>{
+  try{
+    let name = ctx.request.body.name;
+    console.log(name);
+    const Goods = mongoose.model('Goods')
+    let result = await Goods.find({NAME : {$regex : name, $options : "$i"}}).exec()
+    console.log(result);
+    ctx.body = {code : 200, message : result}
+  } catch (err) {
+    ctx.body = {code : 500, message : err}
+  }
+})//查询商品
 
 module.exports = router;

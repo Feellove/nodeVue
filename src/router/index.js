@@ -40,5 +40,9 @@ export default new Router({
     path : '/userInfo',
     name : 'userInfo',
     component : resolve => require(['@/components/pages/userInfo'], resolve)
+  }, {
+    path : '/searchContent',
+    name : 'searchContent',
+    component : resolve => require(['@/components/pages/searchContent'], resolve)
   }]
 })

@@ -52,9 +52,7 @@
     height:1.621rem;
     text-align:center;
     padding-top:0.6rem;
-    /*text-overflow:ellipsis;*/
     overflow:hidden;
-    /*white-space:nowrap;*/
   }
   .subPrice{
     text-align:center;

@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="navBar">
-      <!--<div v-if="this.show">-->
-      <van-nav-bar title="购物车" left-text="返回" left-arrow fixed @click-left="onClickLeft" @click-right="onClickRight" v-if="this.show">
+      <!--<van-nav-bar title="购物车" left-text="返回" left-arrow fixed @click-left="onClickLeft" @click-right="onClickRight" v-if="this.show">-->
+      <!--<van-icon name="edit" slot="right"/>-->
+      <!--</van-nav-bar>-->
+      <van-nav-bar title="购物车" fixed @click-right="edit" v-if="!completeState">
         <van-icon name="edit" slot="right"/>
       </van-nav-bar>
-      <van-nav-bar title="购物车" right-text="完成" fixed @click-left="onClickLeft" @click-right="onClickRight" v-else>
-        <van-icon name="edit" slot="right"/>
-      </van-nav-bar>
-      <!--</div>-->
+      <van-nav-bar title="购物车" right-text="完成" fixed @click-right="completeEdit" v-else></van-nav-bar>
     </div>
     <div class="shoppingContent">
       <van-checkbox-group v-model="checkedGoods" @change="setCheckSingle">
@@ -33,13 +32,25 @@
         </van-row>
       </van-checkbox-group>
     </div>
-    <div class="account">
-      <van-submit-bar style="bottom: 2.13rem" :price="totalPrice" button-text="去结算" @submit="cartSubmit">
-        <van-checkbox v-model="checked" @change="setCheckAll" style="padding: 0 0.6rem;">全选</van-checkbox>
-      </van-submit-bar>
+    <div v-if="!cartsSate">
+      <div class="account" v-if="!editState">
+        <van-submit-bar style="bottom: 2.13rem" :price="totalPrice" button-text="去结算" @submit="cartSubmit">
+          <van-checkbox v-model="checked" @change="setCheckAll" style="padding: 0 0.6rem;">全选</van-checkbox>
+        </van-submit-bar>
+      </div>
+      <div class="account" v-else>
+        <van-submit-bar style="bottom: 2.13rem" button-text="删除" @submit="cartDel">
+          <van-checkbox v-model="checked" @change="setCheckAll" style="padding: 0 0.6rem;">全选</van-checkbox>
+        </van-submit-bar>
+      </div>
+    </div>
+    <div v-else style="font-size:0.6rem;color:#ccc;text-align:center">
+      <van-icon name="cart" style="font-size:1.28rem"></van-icon>
+      购物车为空，请先选择心仪的商品加入
     </div>
     <tab-bar :postVal="postVal"></tab-bar>
   </div>
+
 </template>
 <script>
   import axios from 'axios'
@@ -57,6 +68,9 @@
         checked : false,
         show : false,
         checkedGoods : [],
+        editState : false,
+        completeState : false,
+        cartsSate : false,
         value : 1,
         postVal : 2,
         carts : [],
@@ -84,8 +98,13 @@
       onClickLeft(){
         this.$router.go(-1)
       },
-      onClickRight(){
-        Toast("我是编辑")
+      edit(){
+        this.editState = true;
+        this.completeState = true;
+      },
+      completeEdit(){
+        this.editState = false;
+        this.completeState = false;
       },
       //初始化购物车
       initCart(){
@@ -95,6 +114,9 @@
         }).then(response =>{
           if(response.data.code == 200 && response.data.message){
             this.carts = response.data.message;
+            if(this.carts.length === 0){
+              this.cartsSate = true
+            }
             console.log(this.carts);
           } else {
             Toast('服务器错误，数据取得失败')
@@ -115,6 +137,8 @@
           data : {cartId : cartId, num : num}
         }).then(response =>{
           if(response.data.code == 200 && response.data.message){
+            console.log(response.data.message);
+            this.carts = response.data.message;
           } else {
             Toast('服务器错误，数据取得失败')
           }
@@ -129,13 +153,78 @@
         this.checkedGoods = val ? this.carts.map(carts => carts) : [];
       },
       cartSubmit(){
-        console.log(this.checkedGoods);
-        console.log(this.totalPrice);
         this.$router.push({name : 'order', params : {checkedGoods : this.checkedGoods, totalPrice : this.totalPrice}})
+      },
+      //删除
+      cartDel(){
+        console.log(this.checkedGoods);
+        axios({
+          url : url.deleteCart,
+          method : 'post',
+          data : {deleteData : this.checkedGoods}
+        }).then(response =>{
+          if(response.data.code == 200 && response.data.message){
+            this.initCart()
+          } else {
+            Toast('服务器错误，数据取得失败')
+          }
+        })
+          .catch(error =>{
+            console.log(error)
+          })
       }
     }
   }
 </script>
+<style>
+  .navBar .van-nav-bar{
+    height:1.963rem;
+    line-height:1.963rem;
+  }
+  .navBar .van-nav-bar__left, .navBar .van-nav-bar__right{
+    font-size:0.6rem;
+  }
+  .navBar .van-nav-bar__title{
+    font-size:0.682rem;
+  }
+  .shoppingContent .van-checkbox__icon{
+    font-size:0.512rem;
+    width:0.853rem;
+    height:0.853rem;
+  }
+  .shoppingContent .van-checkbox__icon, .shoppingContent .van-checkbox__label{
+    line-height:0.853rem;
+  }
+  .singleContent .van-stepper__minus, .singleContent .van-stepper__plus{
+    width:1.71rem;
+    height:1.28rem;
+    padding:0.213rem;
+  }
+  .singleContent .van-stepper__input{
+    width:1.408rem;
+    height:1.109rem;
+    font-size:.6rem;
+  }
+  .account .van-submit-bar__bar{
+    height:2.13rem;
+    font-size:0.682rem;
+  }
+  .account .van-checkbox__icon{
+    font-size:0.512rem;
+    width:0.853rem;
+    height:0.853rem;
+  }
+  .account .van-checkbox__icon, .account .van-checkbox__label{
+    line-height:0.853rem;
+  }
+  .account .van-submit-bar .van-button{
+    font-size:0.682rem;
+    width:4.693rem;
+  }
+  .van-submit-bar__price-decimal{
+    font-size:0.512rem;
+  }
+</style>
 <style scoped>
   .navBar{
     font-size:0.683rem;
@@ -198,26 +287,23 @@
     width:100%;
     z-index:1;
     border:solid 0.043rem #eee;
+    overflow:hidden;
   }
-  .account > div{
-    display:inline-block;
-    line-height:1.7rem;
-  }
-  .account-button{
-    float:right;
-  }
-  .allAccount{
-    padding-left:0.4rem;
-    font-size:0.6rem;
-  }
-  .van-cell-swipe__right{
-    color:#ffffff;
-    font-size:15px;
-    width:65px;
-    height:44px;
-    display:inline-block;
-    text-align:center;
-    line-height:44px;
-    background-color:#f44;
-  }
+  /*.account-button{*/
+  /*float:right;*/
+  /*}*/
+  /*.allAccount{*/
+  /*padding-left:0.4rem;*/
+  /*font-size:0.6rem;*/
+  /*}*/
+  /*.van-cell-swipe__right{*/
+  /*color:#ffffff;*/
+  /*font-size:15px;*/
+  /*width:65px;*/
+  /*height:44px;*/
+  /*display:inline-block;*/
+  /*text-align:center;*/
+  /*line-height:44px;*/
+  /*background-color:#f44;*/
+  /*}*/
 </style>

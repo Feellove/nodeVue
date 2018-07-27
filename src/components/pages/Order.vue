@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="order">
     <div class="navBar">
       <van-nav-bar title="填写订单" left-text="返回" left-arrow fixed @click-left="onClickLeft"></van-nav-bar>
     </div>
@@ -35,30 +35,7 @@
           address : '兰光科技园b713',
           id : 0
         }],
-        areaList : {
-          province_list : {
-            110000 : '北京市',
-            120000 : '天津市'
-          },
-          city_list : {
-            110100 : '北京市',
-            110200 : '县',
-            120100 : '天津市',
-            120200 : '县'
-          },
-          county_list : {
-            110101 : '东城区',
-            110102 : '西城区',
-            110105 : '朝阳区',
-            110106 : '丰台区',
-            120101 : '和平区',
-            120102 : '河东区',
-            120103 : '河西区',
-            120104 : '南开区',
-            120105 : '河北区',
-            // ....
-          }
-        },
+        areaList : '',
         isSubmit : false,
         isDisabled : false,
         checkedGoods : [],
@@ -136,6 +113,116 @@
     }
   };
 </script>
+<style>
+  #order .van-contact-card--add{
+    line-height:1.707rem;
+  }
+  #order .van-contact-card__content{
+    padding:0.64rem 0.427rem;
+  }
+  #order .van-contact-card--add .van-contact-card__icon{
+    width:1.707rem;
+    font-size:1.707rem;
+  }
+  #order .van-contact-card__icon{
+    margin-right:0.427rem;
+  }
+  #order .van-contact-card__text{
+    line-height:0.853rem;
+    font-size:0.6rem
+  }
+  #order .van-contact-card__arrow{
+    right:0.427rem;
+    font-size:0.512rem;
+  }
+  #order .van-card{
+    height:4.267rem;
+    font-size:0.683rem;
+    padding:0.213rem 0.64rem 0.213rem 4.907rem;
+  }
+  #order .van-card__thumb{
+    top:0.213rem;
+    left:0.64rem;
+    width:3.84rem;
+    height:3.84rem;
+  }
+  #order .van-card__title{
+    max-height:1.707rem;
+  }
+  #order .van-card__desc, .van-card__title{
+    line-height:0.853rem;
+  }
+  #order .van-card__price{
+    font-size:0.6rem;
+  }
+  #order .van-card__num, .van-card__price{
+    min-width:3.413rem;
+    line-height:0.853rem;
+  }
+  #order .van-card__num{
+    font-size:0.512rem;
+  }
+  #order .van-submit-bar__bar{
+    height:2.13rem;
+    font-size:0.683rem;
+  }
+  #order .van-submit-bar__price{
+    padding-right:0.512rem;
+  }
+  #order .van-submit-bar .van-button{
+    width:4.693rem;
+    font-size:0.683rem
+  }
+  #order .van-submit-bar__price-decimal{
+    font-size:0.512rem;
+  }
+  #order .van-button--normal{
+    padding:0 0.64rem;
+    font-size:0.6rem;
+  }
+  #order .van-address-list__group{
+    padding-bottom:1.707rem;
+  }
+  #order .van-cell{
+    padding:0.427rem 0.64rem;
+    line-height:1.024rem;
+    font-size:0.6rem;
+  }
+  #order .van-address-list .van-cell__value{
+    padding-right:1.451rem;
+  }
+  #order .van-radio__input{
+    height:0.853rem;
+  }
+  #order .van-radio .van-icon{
+    font-size:0.853rem;
+  }
+  #order .van-address-list .van-radio__label{
+    margin-left:1.365rem;
+  }
+  #order .van-radio__label{
+    line-height:0.853rem;
+    margin-left:0.427rem;
+  }
+  #order .van-address-list__name{
+    font-size:0.6rem;
+  }
+  #order .van-address-list__address{
+    font-size:0.512rem;
+  }
+  #order .van-address-list__edit{
+    right:0.64rem;
+    font-size:0.853rem;
+  }
+  #order .van-address-list__add .van-icon-add{
+    font-size:0.853rem;
+  }
+  #order .van-cell__left-icon, #order .van-cell__right-icon{
+    font-size:0.683rem;
+    line-height:1.024rem;
+    margin-right:0.213rem;
+  }
+</style>
 <style scoped>
   .navBar{
     font-size:0.683rem;

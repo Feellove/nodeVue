@@ -14,7 +14,7 @@
           <div class="detail" v-html="goodsInfo.DETAIL"></div>
         </van-tab>
         <van-tab title="评价">
-          正在制作中
+          <div style="height: 2rem;font-size:0.712rem">敬请期待....</div>
         </van-tab>
       </van-tabs>
     </div>
@@ -110,6 +110,51 @@
     }
   }
 </script>
+<style>
+  .goods-bottom .van-goods-action-mini-btn{
+    height:2.13rem;
+    font-size:0.427rem;
+  }
+  .goods-bottom .van-goods-action-big-btn{
+    height:2.13rem;
+    line-height:2.13rem;
+    font-size:0.682rem;
+  }
+  .goods-bottom .van-goods-action{
+    z-index:999;
+  }
+  .goods-content .van-tabs--line{
+    padding-top:1.877rem;
+  }
+  .goods-content .van-tabs__nav--line{
+    padding-bottom:0.64rem;
+  }
+  .goods-bottom .van-goods-action-mini-btn__icon{
+    font-size:0.853rem;
+  }
+  .goods-content .van-tabs__line{
+    bottom:0.64rem;
+    height:0.085rem;
+  }
+  .goods-content .van-tabs--line .van-tabs__wrap{
+    height:1.878rem;
+  }
+  .goods-content .van-tab{
+    padding:0 0.213rem;
+    font-size:0.6rem;
+    line-height:1.878rem;
+  }
+  .navBar .van-nav-bar{
+    height:1.963rem;
+    line-height:1.963rem;
+  }
+  .navBar .van-nav-bar__left, .navBar .van-nav-bar__right{
+    font-size:0.6rem;
+  }
+  .navBar .van-nav-bar__title{
+    font-size:0.682rem;
+  }
+</style>
 <style scoped>
   .detail{
     font-size:0;
@@ -130,18 +175,4 @@
   .goods-content{
     margin-bottom:2.4rem;
   }
-  /*.goods-bottom{*/
-  /*position:fixed;*/
-  /*bottom:0;*/
-  /*left:0;*/
-  /*background-color: #FFF;*/
-  /*width:100%;*/
-  /*display:flex;*/
-  /*flex-direction:row;*/
-  /*flex-flow:nowrap;*/
-  /*}*/
-  /*.goods-bottom > div{*/
-  /*flex:1;*/
-  /*padding:5px;*/
-  /*}*/
 </style>

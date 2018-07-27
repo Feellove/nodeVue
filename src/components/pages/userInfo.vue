@@ -53,7 +53,7 @@
     },
     data(){
       return {
-        postVal : 0,
+        postVal : 3,
       }
     },
     methods : {

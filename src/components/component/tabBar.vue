@@ -20,18 +20,18 @@
     methods : {}
   }
 </script>
-<style scoped>
-  .van-tabbar{
+<style>
+  .tab-bar .van-tabbar{
     height:2.13rem;
   }
-  .van-tabbar-item .van-icon{
+  .tab-bar .van-tabbar-item .van-icon{
     font-size:0.768rem;
     margin-bottom:0.213rem;
   }
-  .van-tabbar-item{
+  .tab-bar .van-tabbar-item{
     font-size:0.51rem;
   }
-  .van-tabbar-item--active{
+  .tab-bar .van-tabbar-item--active{
     color:#e5017d;
     /*font-size:0.51rem;*/
   }

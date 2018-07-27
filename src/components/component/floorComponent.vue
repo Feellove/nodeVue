@@ -4,16 +4,16 @@
     <div class="floor">
       <div class="floor-title"> {{floorTitle}}</div>
       <div class="floor-anomaly">
-        <div class="floor-one"><img :src="floorData0.image" width="100%"/></div>
+        <div class="floor-one"><img :src="floorData0.image" width="100%" @click="goDetail(floorData0.goodsId)"/></div>
         <div>
-          <div class="floor-two"><img :src="floorData1.image" width="100%"/></div>
-          <div><img :src="floorData2.image" width="100%"/></div>
+          <div class="floor-two"><img :src="floorData1.image" width="100%" @click="goDetail(floorData1.goodsId)"/></div>
+          <div><img :src="floorData2.image" width="100%" @click="goDetail(floorData2.goodsId)"/></div>
         </div>
       </div>
 
       <div class="floor-rule">
         <div v-for="(item ,index) in floorData.slice(3)" :key="index">
-          <img :src="item.image" width="100%"/>
+          <img :src="item.image" width="100%" @click="goDetail(item.goodsId)"/>
         </div>
       </div>
 
@@ -34,6 +34,11 @@
     },
     created(){
       //这里写得不到数据，应为数据是延迟返回的
+    },
+    methods : {
+      goDetail(id){
+        this.$router.push({name : 'Goods', query : {goodsId : id}})
+      }
     },
     watch : {
       floorData : function(val){

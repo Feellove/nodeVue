@@ -6,7 +6,7 @@
     <div class="swiper-area">
       <van-swipe :autoplay="1000">
         <van-swipe-item v-for="(banner,index) in bannerPicArray" :key="index">
-          <img :src="banner.image"/>
+          <img :src="banner.image" @click="goDetail(banner.goodsId)"/>
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -29,7 +29,7 @@
         <!--swiper-->
         <swiper :options="swiperOption">
           <swiper-slide v-for=" (item ,index) in recommendGoods" :key="index">
-            <div class="recommend-item">
+            <div class="recommend-item" @click="goDetail(item.goodsId)">
               <img :src="item.image" width="80%"/>
               <div>{{item.goodsName}}</div>
               <div>￥{{item.price | moneyFilter}} (￥{{item.mallPrice | moneyFilter}})</div>
@@ -106,7 +106,6 @@
         .then(response =>{
           if(response.status == 200){
             this.category = response.data.data.category;
-            console.log(this.category);
             this.adBanner = response.data.data.advertesPicture; //获得广告图片
             this.bannerPicArray = response.data.data.slides; //轮播图片
             this.recommendGoods = response.data.data.recommend; //推荐商品
@@ -125,7 +124,9 @@
           path : "/Category",
           query : {id : id}
         });
-        console.log(id);
+      },
+      goDetail(id){
+        this.$router.push({name : 'Goods', query : {goodsId : id}})
       }
     },
     filters : {

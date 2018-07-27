@@ -133,29 +133,40 @@
     }
   }
 </script>
+<style>
+  .tab-bar .van-tab{
+    font-size:0.6rem;
+    line-height:1.878rem;
+  }
+  .tab-bar .van-tabs--line{
+    padding-top:1.878rem;
+  }
+  .tab-bar .van-tabs--line .van-tabs__wrap{
+    height:1.878rem;
+  }
+</style>
 <style scoped>
-  .van-tab span{
+  .tab-bar .van-tab span{
     font-size:0.6rem;
   }
-  .left-ul{
+  .tab-bar .left-ul{
     font-size:0.6rem;
     background-color:#fff;
   }
-  .left-ul > li{
+  .tab-bar .left-ul > li{
     border-bottom:1px solid #efefef;
     text-align:center;
     line-height:2rem;
     margin-left:0.3rem;
   }
-  .left-ul > li.activeLi{
+  .tab-bar .left-ul > li.activeLi{
     background-color:#efefef;
   }
-  .right-content{
+  .tab-bar .right-content{
     background-color:#efefef;
     margin-bottom:2.13rem;
     padding-top:0.2rem;
     text-align:center;
     font-size:0.6rem;
   }
-
 </style>
