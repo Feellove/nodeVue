@@ -1,7 +1,7 @@
 <template>
   <div class="goods-info" @click="goGoodsPage">
     <div v-if="goods.goodsOldPrice">
-      <img :src="goods.goodsImage" class="subImage">
+      <img :src="goods.goodsImage" class="subImage" :onerror="errorImg">
       <div class="subName">{{goods.goodsName}}</div>
       <div class="subPrice">
         <span class="subNewPrice">￥{{goods.goodsPrice | moneyFilter}}</span><span class="subOldPrice">￥{{goods.goodsOldPrice | moneyFilter}}</span>
@@ -9,7 +9,7 @@
     </div>
     <div v-else>
       <div class="goods-image">
-        <img v-lazy="goods.goodsImage" width="90%"/>
+        <img v-lazy="goods.goodsImage" width="90%" :onerror="errorImg"/>
       </div>
       <div class="goods-name">{{goods.goodsName}}</div>
       <div class="goods-price">￥{{goods.goodsPrice | moneyFilter}}</div>
@@ -22,6 +22,11 @@
 
   export default {
     props : ["goods"],
+    data(){
+      return {
+        errorImg : 'this.src="' + require('@/assets/images/timg.jpg') + '"',
+      }
+    },
     filters : {
       moneyFilter(money){
         return toMoney(money);

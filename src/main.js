@@ -19,6 +19,7 @@ import {
   ContactCard,
   ContactEdit,
   ContactList,
+  Dialog,
   Field,
   GoodsAction,
   GoodsActionBigBtn,
@@ -27,6 +28,7 @@ import {
   Lazyload,
   List,
   NavBar,
+  Panel,
   Popup,
   Radio,
   RadioGroup,
@@ -44,7 +46,7 @@ import {
   TreeSelect
 } from 'vant'
 
-Vue.use(Radio).use(RadioGroup).use(List).use(Area).use(AddressEdit).use(AddressList).use(Card).use(Popup).use(ContactCard).use(ContactList).use(ContactEdit).use(SubmitBar).use(Cell).use(CellGroup).use(CellSwipe).use(Icon).use(Stepper).use(Checkbox).use(CheckboxGroup).use(Button).use(Row).use(Col).use(Search).use(Swipe).use(SwipeItem).use(Lazyload).use(List).use(Field).use(NavBar).use(Tab).use(Tabs).use(Tabbar).use(TabbarItem).use(Switch).use(TreeSelect).use(GoodsAction).use(GoodsActionBigBtn).use(GoodsActionMiniBtn)
+Vue.use(Dialog).use(Panel).use(Radio).use(RadioGroup).use(List).use(Area).use(AddressEdit).use(AddressList).use(Card).use(Popup).use(ContactCard).use(ContactList).use(ContactEdit).use(SubmitBar).use(Cell).use(CellGroup).use(CellSwipe).use(Icon).use(Stepper).use(Checkbox).use(CheckboxGroup).use(Button).use(Row).use(Col).use(Search).use(Swipe).use(SwipeItem).use(Lazyload).use(List).use(Field).use(NavBar).use(Tab).use(Tabs).use(Tabbar).use(TabbarItem).use(Switch).use(TreeSelect).use(GoodsAction).use(GoodsActionBigBtn).use(GoodsActionMiniBtn)
 
 Vue.config.productionTip = false
 

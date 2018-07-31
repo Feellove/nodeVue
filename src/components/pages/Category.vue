@@ -51,7 +51,7 @@
         checked : true,
         categories : [],
         categorySub : [],
-        id : ''
+        id : '',
       };
     },
     created(){

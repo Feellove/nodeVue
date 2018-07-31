@@ -16,7 +16,10 @@ const URL = {
   insertKeyword : LOCALURL + 'goods/insertKeyword',   //插入关键字
   checkKeyword : LOCALURL + 'goods/checkKeyword',      //查看关键字
   deleteKeyword : LOCALURL + 'goods/deleteKeyword',      //删除关键字
-  checkGoods : LOCALURL + 'goods/checkGoods'      //搜索商品
+  checkGoods : LOCALURL + 'goods/checkGoods',     //搜索商品
+  insertOrder : LOCALURL + 'goods/insertOrder',      //插入订单
+  checkOrder : LOCALURL + 'goods/checkOrder',      //查看订单
+  updateOrder : LOCALURL + 'goods/updateOrder',      //更新订单
 }
 
 module.exports = URL

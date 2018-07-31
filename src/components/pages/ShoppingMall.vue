@@ -65,7 +65,6 @@
   import url from '@/serviceAPI.config.js'
   import "swiper/dist/css/swiper.css";
   import {swiper, swiperSlide} from "vue-awesome-swiper";
-  // import swiperDefault from "../swiper/swiperDefault";
   import floorComponent from "../component/floorComponent";
   import {toMoney} from "@/filter/moneyFilter.js";
   import goodsInfo from "../component/goodsInfoComponent";
@@ -137,7 +136,12 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped="" type="text/scss">
+  @mixin flex($display, $direction, $wrap){
+    display:$display;
+    flex-direction:$direction;
+    flex-wrap:$wrap;
+  }
   .swiper-area{
     clear:both;
     overflow:hidden;
@@ -151,9 +155,7 @@
     margin:0 0.3rem 0.3rem 0.3rem;
     border-radius:0.3rem;
     font-size:0.6rem;
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
+    @include flex(flex, row, nowrap);
   }
   .type-bar div{
     padding:0.3rem;

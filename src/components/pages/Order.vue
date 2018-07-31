@@ -21,6 +21,9 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  import url from '@/serviceAPI.config.js'
+
   export default {
     data(){
       return {
@@ -105,7 +108,22 @@
       },
       onSubmit(){
         this.isSubmit = true;
-        this.$router.replace({name : "payment"})
+        console.log(this.checkedGoods);
+        console.log(this.checkedGoods);
+        axios({
+          url : url.deleteCart,
+          method : 'post',
+          data : {deleteData : this.checkedGoods}
+        }).then(response =>{
+          if(response.data.code == 200 && response.data.message){
+            this.$router.replace({name : "payment", params : {data : this.checkedGoods, totalPrice : this.totalPrice}})
+          } else {
+            Toast('服务器错误，数据取得失败')
+          }
+        }).catch(error =>{
+          console.log(error)
+        })
+
       },
       onClickLeft(){
         this.$router.go(-1)

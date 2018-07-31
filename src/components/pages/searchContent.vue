@@ -209,7 +209,9 @@
     line-height:118px;
     text-overflow:ellipsis;
     overflow:hidden;
-    white-space:nowrap
+    white-space:nowrap;
+    width:100%;
+    display:inline-block;
   }
   .f_left{
     float:left;

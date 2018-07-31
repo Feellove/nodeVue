@@ -4,7 +4,7 @@
       <van-nav-bar title="商品详情" left-text="返回" left-arrow fixed @click-left="onClickLeft"/>
     </div>
     <div class="topImage">
-      <img :src="goodsInfo.IMAGE1" width="100%"/>
+      <img :src="goodsInfo.IMAGE1" width="100%" :onerror="errorImg"/>
     </div>
     <div class="goods-price">价格：￥{{goodsInfo.PRESENT_PRICE | moneyFilter}}</div>
     <div class="goods-name">{{goodsInfo.NAME}}</div>
@@ -39,7 +39,8 @@
       return {
         goodsId : '',
         info : null,
-        goodsInfo : {}//商品详细数据
+        goodsInfo : {},//商品详细数据
+        errorImg : 'this.src="' + require('@/assets/images/timg.jpg') + '"'
       }
     },
     created(){
@@ -66,7 +67,6 @@
           .then(response =>{
             if(response.data.code == 200 && response.data.message){
               this.goodsInfo = response.data.message
-              console.log(response.data.message);
             } else {
               Toast('服务器错误，数据取得失败')
             }
@@ -95,7 +95,6 @@
         }).then(response =>{
           if(response.data.code == 200 && response.data.message){
             this.info++
-            console.log(response.data.message);
             Toast('加入成功');
           } else {
             Toast('服务器错误，数据取得失败')
@@ -166,6 +165,7 @@
   .goods-name{
     font-size:0.768rem;
     padding-left:0.4rem;
+    padding-bottom:0.6rem;
   }
   .goods-price{
     font-size:0.768rem;

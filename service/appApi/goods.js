@@ -111,16 +111,6 @@ router.post('/insertAllCart', async (ctx) =>{
   let data = ctx.request.body
   console.log(data);
   const Cart = mongoose.model('Cart')
-  //把商品内容信息写入数据库
-  // data.map((value,index)=>{
-  //   console.log(value);
-  //   let cartInsert = new  Cart(value)
-  //   cartInsert.save().then(() =>{
-  //     console.log('成功插入')
-  //   }).catch(error =>{
-  //     console.log('插入失败:' + error)
-  //   })
-  // })
   let monInsert = new Cart(data);
   monInsert.save(function(err){
     if(err){
@@ -223,5 +213,56 @@ router.post('/checkGoods', async (ctx) =>{
     ctx.body = {code : 500, message : err}
   }
 })//查询商品
+
+//生成订单接口
+router.post('/insertOrder', async (ctx) =>{
+  let allData = ctx.request.body
+  let data = {
+    ID : allData.id,
+    STATUS : allData.status,
+    PRICE : allData.price,
+    IMAGE : allData.orderData[0].IMAGE,
+    NAME : allData.orderData[0].NAME
+  }
+  const Order = mongoose.model('Order')
+  let OrderInsert = new Order(data);
+  OrderInsert.save().then(() =>{
+    console.log('成功插入')
+    ctx.body = {code : 200, message : OrderInsert}
+    ctx.response.status = 200
+    console.log(ctx.response);
+  }).catch(error =>{
+    console.log('插入失败:' + error)
+  })
+})//添加订单
+
+router.post('/checkOrder', async (ctx) =>{
+  let data = ctx.request.body.status
+  try{
+    const Order = mongoose.model('Order');
+    let result = '';
+    if(data == '全部'){
+      result = await Order.find().exec();
+    } else {
+      result = await Order.find({STATUS : data}).exec();
+    }
+    ctx.body = {code : 200, message : result}
+  } catch (err) {
+    ctx.body = {code : 500, message : err}
+  }
+})//查询订单
+
+router.post('/updateOrder', async (ctx) =>{
+  let id = ctx.request.body.id
+  let status = ctx.request.body.status
+  try{
+    const Order = mongoose.model('Order');
+    let result = await Order.update({ID : id}, {STATUS : status}).exec();
+    console.log(result);
+    ctx.body = {code : 200, message : result}
+  } catch (err) {
+    ctx.body = {code : 500, message : err}
+  }
+})//查询订单
 
 module.exports = router;
